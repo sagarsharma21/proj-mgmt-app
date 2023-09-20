@@ -81,6 +81,10 @@ section{
     border : 1px solid black;
 
 }
+.board-block{
+    display: none;
+    margin-top: 3%;
+}
 
 .project-card{
     background-color: grey;

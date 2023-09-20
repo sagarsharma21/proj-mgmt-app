@@ -18,9 +18,7 @@ var projectListObject = [
   }
 ];
 
-showProjects('projectList');
-
-function showProjects(idGenerator) {
+function showProjects(cardIdGen) {
     
     projectListObject.forEach(function (value, index) {
         console.log(value);
@@ -32,12 +30,7 @@ function showProjects(idGenerator) {
             '</ul>'+
         '</div>';
 
-        if (idGenerator) {
-            document.getElementById(idGenerator).innerHTML += template;
-        } else {
-         
-            document.getElementById('projectList').innerHTML += template;   
-        } 
+        document.getElementById(cardIdGen).innerHTML += template;
         });
     }
 
@@ -51,18 +44,28 @@ function showProjects(idGenerator) {
     function addBoard(id) {
     
         idName++;
-        console.log(id.value);
-        var idGenerator = 'projectList_'+idName;
-        console.log(idGenerator);
-        var boardTemplate = '<section class="board-block" style="margin-top: 5px; padding-top: 2px;">'+
-                                '<div>Board Name:'+id.value+'<button onclick="removeCards()">Remove card</button></div>'+
+        console.log(idName );
+
+        var cardIdGen = 'projectList_'+idName;  //listID = cardIdGen
+        console.log(cardIdGen);
+
+        var boardIdGen = 'board_'+idName ;
+        var boardTemplate = '<section class="board-block" id='+boardIdGen+' style="margin-top: 5px; padding-top: 2px;">'+
+                                '<div>Board Name:'+id.value+'<button onclick="removeCards('+cardIdGen+')">Remove card</button></div>'+
                                 '<div class="project-block" style="border: 2px solid rgb(130, 185, 20); margin :2px; padding: 2px;"'+
-                                'id='+ idGenerator+'>'+
+                                'id='+ cardIdGen+'>'+
                                 '</div>'+
                             '</section>';
         document.getElementById('boardBlockList').innerHTML += boardTemplate;
-        showProjects(idGenerator);
+        showProjects(cardIdGen);
+        console.log(id.value+" bugfix")
+        document.getElementById('menu-list').innerHTML += '<li onclick="loadMenu('+boardIdGen+')">'+id.value+'</li>';
     }
+
+    function loadMenu(element) {
+        console.log(element.id);
+        document.getElementById(element.id).style.display='block';
+     }
 // function showProject() {
     
 //     var template = 
@@ -75,3 +78,10 @@ function showProjects(idGenerator) {
 //     '</div>';
 //     document.getElementById('projectList').innerHTML += template; 
 // }
+
+// if (cardIdGen) { //deprecated
+//     document.getElementById(cardIdGen).innerHTML += template;
+// } else {
+ 
+//     document.getElementById('projectList').innerHTML += template;   
+// } 
