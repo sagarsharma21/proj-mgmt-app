@@ -18,29 +18,51 @@ var projectListObject = [
   }
 ];
 
-showProjects();
+showProjects('projectList');
 
-function showProjects() {
+function showProjects(idGenerator) {
     
     projectListObject.forEach(function (value, index) {
         console.log(value);
         var template = 
-        '<div class="project-card">'+
-            value.name+
+        '<div class="project-card">'+ value.name+
             '<ul>'+
                 '<li>Task 1</li>'+
                 '<li>Task 2</li>'+
             '</ul>'+
         '</div>';
-        document.getElementById('projectList').innerHTML += template; 
+
+        if (idGenerator) {
+            document.getElementById(idGenerator).innerHTML += template;
+        } else {
+         
+            document.getElementById('projectList').innerHTML += template;   
+        } 
         });
     }
 
     
     function removeCards()  {
-        document.getElementById('projectList').innerHTML='none';
+        document.getElementById('projectList').innerHTML='card removed';
     }
 
+
+    var idName = 1;
+    function addBoard(id) {
+    
+        idName++;
+        console.log(id.value);
+        var idGenerator = 'projectList_'+idName;
+        console.log(idGenerator);
+        var boardTemplate = '<section class="board-block" style="margin-top: 5px; padding-top: 2px;">'+
+                                '<div>Board Name:'+id.value+'<button onclick="removeCards()">Remove card</button></div>'+
+                                '<div class="project-block" style="border: 2px solid rgb(130, 185, 20); margin :2px; padding: 2px;"'+
+                                'id='+ idGenerator+'>'+
+                                '</div>'+
+                            '</section>';
+        document.getElementById('boardBlockList').innerHTML += boardTemplate;
+        showProjects(idGenerator);
+    }
 // function showProject() {
     
 //     var template = 
