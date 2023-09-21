@@ -65,7 +65,7 @@ var projectListObject = [
         console.log(id.value+" bugfix")
 
         document.getElementById('menu-list').innerHTML += '<li onclick="loadMenu('+boardIdGen+')">'+id.value+'<hr></li>';
-                  alert("Board name" + id.value + "added!");
+                  alert("Board name " + id.value + " added!");
                   id.value=id.defaultValue;  
                     }
     }
