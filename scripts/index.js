@@ -1,3 +1,56 @@
+    var xhr = new XMLHttpRequest();
+    //getBoards();
+    
+    //function to get boards and display on UI using GET request
+    function getBoards() {
+        xhr.open('GET','http://localhost:8080/api/v1/boards');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        var access = sessionStorage.getItem('access-token');
+        xhr.setRequestHeader('Authorization', 'Bearer' + access);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            //console.log(xhr.responseText);
+            if(xhr.readyState === 4) {
+                var boardList = JSON.parse(xhr.responseText);
+                //console.log(boardList.boards);
+            //document.getElementById('boardBlockList').innerHTML = '<p>Board List</p>'    
+            
+            var listTemplate = '<span></span>';
+            var boards = boardList.boards;
+            boards.forEach(function(value, index) {
+                console.log(value.name);
+                document.getElementById('boardBlockList').innerHTML += '<p>'+ value.name +'</p>';
+                });
+            }
+        };
+
+    }
+
+    //function to add boards dynamically using POST request
+    function addBoardAPI(element) {
+        var userDetail  = JSON.parse(sessionStorage.getItem('user-detail'));
+        var parameter = {
+            "description":"string",
+            "name": element.value, //"name":"string",
+            "owner_id":  userDetail.id //"owner_id":"string"
+        };
+
+        xhr.open('POST', 'http://localhost:8080/api/v1/boards');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        var access = sessionStorage.getItem('access-token');
+        xhr.setRequestHeader('Authorization' ,"Bearer" + access);
+        xhr.send(JSON.stringify(parameter));
+
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4){
+                //var boardList = JSON.parse(xhr.responseText);
+                getBoards();
+            }
+        };
+
+    }
+
+    //toggle menu visibility
     function toggleMenu() {    
         var toggleSwitch = document.getElementsByClassName('menu')[0];
 
@@ -9,15 +62,16 @@
         }
     }
 
-var projectListObject = [
-  { 
-    name: "Project One" 
-  },
-  {
-    name: "Project Two",
-  }
-];
+    var projectListObject = [
+        { 
+            name: "Project One" 
+        },
+        {
+            name: "Project Two",
+        }
+    ];
 
+    //function to show project list when clicked by user      /
     function showProjects(cardIdGen) {
     
         projectListObject.forEach(function (value, index) {
@@ -73,8 +127,8 @@ var projectListObject = [
     function loadMenu(element) {
         console.log(element.id);
         document.getElementById(element.id).style.display='block';
-     }
-// function showProject() {
+    }
+// function showProject() {` //deprecated
     
 //     var template = 
 //     '<div class="project-card">'+
