@@ -19,7 +19,8 @@
             var boards = boardList.boards;
             boards.forEach(function(value, index) {
                 console.log(value.name);
-                document.getElementById('boardBlockList').innerHTML += '<p>'+ value.name +'</p>';
+                document.getElementById('boardBlockList').innerHTML += '<div id='+ value.id +' onclick=showProjects('+ value.id +');>'+value.name+'</div>';
+                //showProjects(value.id); /multiple API calls in a loop not allowed by browser
                 });
             }
         };
@@ -73,19 +74,33 @@
 
     //function to show project list when clicked by user      /
     function showProjects(cardIdGen) {
-    
-        projectListObject.forEach(function (value, index) {
-            console.log(value);
-            var template = 
-            '<div class="project-card">'+ value.name+
-                '<ul>'+
-                    '<li calss="task-list">Task 1</li>'+
-                    '<li class="task-list">Task 2</li>'+
-                '</ul>'+
-            '</div>';
 
-            document.getElementById(cardIdGen).innerHTML += template;
-            });
+        xhr.open('GET', 'http://localhost:8080/api/v1/boards/'+cardIdGen+'/project');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        var access = sessionStorage.getItem('access-token');
+        xhr.setRequestHeader('Authorization', 'Bearer' + access);
+        xhr.send();
+
+        xhr.onreadystatechange= function() {
+            if (xhr.readyState === 4) {    
+               // console.log(xhr.responseText);
+               var projectList = JSON.parse(xhr.responseText);
+               var projects = projectList.projects;
+               //console.log(projectList);
+
+               projects.forEach(function (value, index) {
+                console.log(value);
+                var template = 
+                '<div class="project-card">'+ value.name+
+                    '<ul>'+
+                        '<li calss="task-list">Task 1</li>'+
+                        '<li class="task-list">Task 2</li>'+
+                    '</ul>'+
+                '</div>';
+                    document.getElementById(cardIdGen).innerHTML += template;
+                });
+            }
+        };
     }
 
     
