@@ -18,7 +18,11 @@
             var listTemplate = '<span></span>';
             var boards = boardList.boards;
             boards.forEach(function(value, index) {
-                console.log(value.name);
+                var template = "<div id="+ value.id +" onclick=showProjects('" + value.id +"')>" 
+                + value.name +
+                "<button class='delete-btn' onclick='deleteBoard('"+ value.id +"')>Delete Board</button>"+
+                "<button class='project-btn' onclick='addProject()'>Add Project</button>"+
+                "</div>";
                 document.getElementById('boardBlockList').innerHTML += '<p>'+ value.name +'</p>';
                 });
             }
@@ -127,6 +131,29 @@
     function loadMenu(element) {
         console.log(element.id);
         document.getElementById(element.id).style.display='block';
+    }
+
+    //Additional functionality for buttons
+    function addProject(){
+        
+    }
+
+    function deleteBoard(id){
+        event.stopPropagation();
+        xhr.open('DELETE', 'http:localhost:8080/api/v1/boards/'+id);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        var access= sessionStorage.getItem('access-token');
+        xhr.setRequestHeader('Authorization', 'Bearer', + access);
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) { 
+                //console.log(xhr.responseText);
+               document.getElementById(id).remove();
+                
+            }
+        };
+
     }
 // function showProject() {` //deprecated
     
