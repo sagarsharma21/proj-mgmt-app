@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./styles/index.css"> 
+    <link rel="stylesheet" href="./styles/common.css" >
 </head>
 <body>
     <header>
@@ -17,28 +18,27 @@
     <div class="content">
         <div class="menu">
             Menu
+            <ul id="menu-list">
+
+            </ul>
         </div>
         <div class="board-container">
             <!-- <span style="display: none;">Container</span> -->
             <div class="add-board-block">
-                <div class="input-board">
-                    <input id="searchBoard" type="text"   placeholder="e.g., new test board" style="display: inline;">
-                    <button id="add-board-btn" type="submit" onclick="addBoard(searchBoard)" display: inline;">Add Board</button>
-                   
-                </div>
-            </div>
-            <div id="boardBlockList"></div>
-            <section class="board-block" style="margin-top: 5px; padding-top: 2px;">
-                <div>Board Name: Project Board<button onclick="removeCards()">Remove card</button></div>
-                <div class="project-block" id="projectList" style="border: 2px solid rgb(130, 185, 20); margin :2px; padding: 2px;">
-
+                    <div class="input-board">
+                        <input id="searchBoard" type="text" value="" placeholder="e.g., new test board" minlength="5" required style="display: inline;">
+                        <button id="add-board-btn" type="submit" onclick="addBoardAPI(searchBoard)" style="display: inline;">Add Board</button>
                     </div>
-            </section>
-            
-
-        </div>
-    </div>
-    <script src="index.js"></script>
+                <div id="boardBlockList">
+                    
+                </div>               
+                <section class="board-block" style="margin-top: 5px; padding-top: 2px;">
+                    
+                
+                </section>
+            </div>
+         </div>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
 
@@ -58,3 +58,16 @@
                             <li>Task 2</li>
                         </ul>
                     </div> HTML Code for adding project cards -->
+<!-- 
+    //  <div>Board Name: Project Board<button onclick="removeCards()">Remove card</button></div>
+    // <div class="project-block" id="projectList" style="border: 2px solid rgb(130, 185, 20); margin :2px; padding: 2px;"></div>
+     -->
+     
+     <!--
+        </div>
+            </div>
+            <div id="boardBlockList"></div>
+            <section class="board-block" style="margin-top: 5px; padding-top: 2px;">
+                <div>Board Name: Project Board<button onclick="removeCards()">Remove card</button></div>
+                <div class="project-block" id="projectList" style="border: 2px solid rgb(130, 185, 20); margin :2px; padding: 2px;">
+     -->
